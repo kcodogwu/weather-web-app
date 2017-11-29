@@ -51,10 +51,13 @@ var LIB = {
   },
   create24HoursBreakdown: function create24HoursBreakdown(el, data) {
     var str = '';
+    
+    str += '<h2 class="weather-breakdown-title">24 Hour Weather Breakdown</h2>';
+    str += '<div class="weather-breakdown">';
 
     data.map(function createBreakdown(obj) {
       if (obj) {
-        str += '<div class="weather-breakdown">';
+        str += '<div class="detail">';
         str += '  <div class="day">' + obj.day + '</div>';
         str += '  <div class="description">' + obj.weatherDescription + '</div>';
         str += '  <img alt="' + obj.weatherDescription + '" src="' + LIB.imageLink + obj.weatherIcon + '" />';
@@ -64,13 +67,15 @@ var LIB = {
       }
     });
 
+    str += '</div>';
+
     el.innerHTML = str;
   }
 };
 
 window.onload = function onload() {
-  var searchField = LIB._$('#search-field');
-  var searchButton = LIB._$('#search-button');
+  var searchField = LIB._$('.search-field');
+  var searchButton = LIB._$('.search-button');
 
   var search = function search(text) {
     LIB.getAjax(
@@ -86,8 +91,8 @@ window.onload = function onload() {
         var weatherDescription = weather.getAttribute('value');
         var weatherIcon = weather.getAttribute('icon') + '.png';
         var divTop = LIB._$('div.top');
-        var h3 = document.createElement('h3');
-        var h2 = document.createElement('h1');
+        var h2 = document.createElement('h2');
+        var divMainTemp = document.createElement('div');
         var div = document.createElement('div');
         var div1 = document.createElement('div');
         var sup = document.createElement('sup');
@@ -95,19 +100,27 @@ window.onload = function onload() {
         var sup2 = document.createElement('sup');
         var img = document.createElement('img');
         var br = document.createElement('br');
+        var top = LIB._$('div.top');
+
+        if (top.hasChildNodes()) {
+          while (top.hasChildNodes()) {
+            top.removeChild(top.childNodes[0]);
+          }
+        }
         
-        h3.appendChild(document.createTextNode(cityName));
+        LIB.addClass(divMainTemp, 'main-temp');
+        h2.appendChild(document.createTextNode(cityName));
         div.appendChild(document.createTextNode(LIB.capitaliseFirstChar(weatherDescription)));
         img.alt = weatherDescription;
         img.src = LIB.imageLink + weatherIcon;
         LIB.addClass(img, 'weather-icon-margin-right');
-        h2.appendChild(img);
-        h2.appendChild(document.createTextNode(LIB.formatDecimals(tempValue, 0)));
+        divMainTemp.appendChild(img);
+        divMainTemp.appendChild(document.createTextNode(LIB.formatDecimals(tempValue, 0)));
         sup.appendChild(document.createTextNode('o'));
         sup1.appendChild(document.createTextNode('o'));
         sup2.appendChild(document.createTextNode('o'));
-        h2.appendChild(sup);
-        h2.appendChild(document.createTextNode('C'));
+        divMainTemp.appendChild(sup);
+        divMainTemp.appendChild(document.createTextNode('C'));
         div1.appendChild(document.createTextNode('Min. temperature: ' + LIB.formatDecimals(minTemp, 0)));
         div1.appendChild(sup1);
         div1.appendChild(document.createTextNode('C'));
@@ -115,9 +128,9 @@ window.onload = function onload() {
         div1.appendChild(document.createTextNode('Max. temperature: ' + LIB.formatDecimals(maxTemp, 0)));
         div1.appendChild(sup2);
         div1.appendChild(document.createTextNode('C'));
-        divTop.appendChild(h3);
-        divTop.appendChild(div);
         divTop.appendChild(h2);
+        divTop.appendChild(div);
+        divTop.appendChild(divMainTemp);
         divTop.appendChild(div1);
       }
     );
@@ -126,7 +139,8 @@ window.onload = function onload() {
       'http://api.openweathermap.org/data/2.5/forecast?q=' + text + '&units=metric&type=like&appid=fa868a7f62f1ab1e638c07217f015307',
       function success(data) {
         var divBottom = LIB._$('div.bottom');
-        var context = LIB._$('.weather-chart').getContext('2d');
+        var wcCanvas = LIB._$('.weather-chart');
+        var context = wcCanvas.getContext('2d');
         var jsonData = JSON.parse(data.responseText);
         var theList = jsonData.list;
         var rawDataForChart = {};
@@ -136,6 +150,15 @@ window.onload = function onload() {
         var minTemps = [];
         var weatherChart = {};
         var i = 0;
+        
+        if (divBottom.hasChildNodes()) {
+          while (divBottom.hasChildNodes()) {
+            divBottom.removeChild(divBottom.childNodes[0]);
+          }
+        }
+
+        // I found out that whenever the width and height attributes are set or reset the bitmap and any associated contexts must be cleared back to their initial state
+        wcCanvas.width = wcCanvas.width; 
 
         var _24hrsData = theList.map(function filterData(el, index) {
           var obj = {};
@@ -149,7 +172,7 @@ window.onload = function onload() {
             obj.day = dObj.toDateString().substring(0, dObj.toDateString().length - 5);
             obj.minTemp = LIB.formatDecimals(el.main.temp_min, 0);
             obj.maxTemp = LIB.formatDecimals(el.main.temp_max, 0);
-            obj.hours = dObj.getHours() < 12 ? dObj.getHours() + 'am' : (dObj.getHours() - 12) + 'pm';
+            obj.hours = dObj.getHours() < 12 ? dObj.getHours() + 'am' : (dObj.getHours() === 12 ? dObj.getHours() + 'pm' : (dObj.getHours() - 12) + 'pm');
             obj.weatherDescription = LIB.capitaliseFirstChar(el.weather[0].description);
             obj.weatherIcon = el.weather[0].icon + '.png';
             return obj;
@@ -218,12 +241,12 @@ window.onload = function onload() {
                 label: 'Min. Temp.',
                 data: minTemps,
                 borderColor: 'rgb(128, 128, 128)',
-                backgroundColor: 'rgb(128, 128, 128, 0.3)'
+                backgroundColor: 'rgb(128, 128, 128, 0.5)'
               }, {
                 label: 'Max. Temp.',
                 data: maxTemps,
                 borderColor: 'rgb(255, 255, 255)',
-                backgroundColor: 'rgb(255, 255, 255, 0.3)'
+                backgroundColor: 'rgb(255, 255, 255, 0.5)'
               }
             ]
           },

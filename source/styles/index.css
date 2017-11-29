@@ -5,7 +5,7 @@
 
 body {
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, Helvetica, sans-serif;
-  font-size: 100%;
+  font-size: 137.5%;
   box-sizing: border-box;
   color: white;
   background-color: #003366;
@@ -21,11 +21,10 @@ section {
   display: block;
 }
 
-/* html,
-body {
-  height: 100%;
-  height: 100vh;
-} */
+h1 { font-size: 2em; font-weight: 100; }
+h2 { font-size: 1.5em; font-weight: 100; }
+h3 { font-size: 1.125em; font-weight: 100; }
+p { font-size: 1em; }
 
 .page {
   height: 100%;
@@ -36,16 +35,85 @@ body {
 }
 
 .header {
-  height: 10%;
-  padding-top: 0.5%;
+  text-align: center;
+}
+
+.logo {
+  margin-top: 20px;
+  margin-bottom: 20px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  width: 200px;
+  border-style: solid;
+  border-color: white;
+}
+
+.search-label {
+  padding-bottom: 10px;
 }
 
 .main {
-  height: 80%;
+  margin-top: 30px;
+  min-height: 50vh;
+}
+
+.top {
+  width: 300px;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+}
+
+.main-temp {
+  font-size: 3em; 
+  font-weight: 100;
+}
+
+.bottom {
+  width: 90%;
+  margin-top: 30px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.weather-breakdown-title {
+  text-align: center
+}
+
+.weather-breakdown {
+  width: 70%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.detail {
+  width: 200px;
+  float: left;
+  margin: 5px;
+  padding: 5px;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.detail:nth-child(5) {
+  clear: left;
+}
+
+.max-temp {
+  font-size: 1.25em;
+  font-weight: 100;
+}
+
+.min-temp {
+  color: rgb(159, 159, 159);
 }
 
 .footer {
-  height: 10%;
+  margin-top: 20px;
+  padding-top: 20px;
+  padding-bottom: 20px;
   text-align: center;
 }
 
