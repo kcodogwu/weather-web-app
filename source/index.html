@@ -14,24 +14,31 @@
   <div class="page">
     <div class="header">
       <h1>Weather search</h1>
+      <div class="search-area">
+        <input type="text" id="search-field" />
+        <button type="button" id="search-button">
+          <img
+            alt="search icon"
+            src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAF6SURBVDhPpdNNK0RRHMfxoShPYSGRV6CEHZE3oHgJUqwsLJSVhSUblJ1Q1myFFSILSSk2kjwmT0WxQny/c2dqmpl7h/GrT3POnZlzz/88xLKkCRPYwgl2MYsO/CklWMQXbrCESczhFN9YRQ1yphR7eEU/CpGebviic9T6ICoLeEFzvBeeelzC5SjwQba4ZpbZF+/lTicsvzfeyxI34BaW6Tr+JttYCZqZ2YQbYIYSn7kyBieRNcdwN80+yoNmZAbwGTQzs4P5oBk7wHDQjMwoHoNmZjy0njMzjne0xXvh8TyuB83MJHfNc1aBI7xhJNFPTyMsN/JU+MZrNKAS07jCHWZQB1OGQ7juxT4Ii9fpDBcIu7POzMGsZg3tqEJovE6eL//gp0djEG6AFXzA5diAv9E9Im+X16kHy/CcuVbuphvgmhWhC8kB5fctyDvVeEDqoE9oRd6xTGeWOugzXOe8Y5nOLHXQKfwrlunMHMwL4c7/O5bpueV2xWI/dq9fOXPxGeYAAAAASUVORK5CYII="
+          >
+        </button>
+      </div>
     </div>
     <div class="main">
       <div class="data">
         <div class="top"></div>
         <div class="bottom">
-          <div class="day"></div>
-          <div class="day"></div>
-          <div class="day"></div>
-          <div class="day"></div>
-          <div class="day"></div>
         </div>
       </div>
-      <div class="chart"></div>
+      <div class="chart-area">
+        <canvas class="weather-chart"></canvas>
+      </div>
     </div>
     <div class="footer">
       Copyright (c) 2017 Kingson Chinedu Odogwu
     </div>
   </div>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.min.js"></script>
   <script src="scripts/index.js"></script>
 </body>
 </html>

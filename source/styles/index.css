@@ -1,3 +1,8 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
 body {
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, Helvetica, sans-serif;
   font-size: 100%;
@@ -5,8 +10,6 @@ body {
   color: white;
   background-color: #003366;
   background-color: hsl(210, 100%, 20%);
-  margin: 0;
-  padding: 0;
 }
 
 article,
@@ -18,11 +21,11 @@ section {
   display: block;
 }
 
-html,
+/* html,
 body {
   height: 100%;
   height: 100vh;
-}
+} */
 
 .page {
   height: 100%;
@@ -49,4 +52,8 @@ body {
 .header h1 {
   margin-left: 3%;
   font-weight: 100;
+}
+
+.weather-icon-margin-right {
+  margin-right: 10px;
 }
