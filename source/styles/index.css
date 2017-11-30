@@ -38,6 +38,18 @@ p { font-size: 1em; }
   text-align: center;
 }
 
+.temp-unit {
+  position: absolute;
+  top: 0;
+  right: 0;
+  padding: 10px;
+  margin: 10px;
+}
+
+.fahrenheit-temp {
+  margin-left: 10px;
+}
+
 .logo {
   margin-top: 20px;
   margin-bottom: 20px;
@@ -66,9 +78,19 @@ p { font-size: 1em; }
   text-align: center;
 }
 
+.data {
+  overflow-y: auto;
+}
+
 .main-temp {
   font-size: 3em; 
   font-weight: 100;
+  color: rgb(253, 253, 150);
+}
+
+.chart-title {
+  margin: 10px;
+  padding: 10px;
 }
 
 .bottom {

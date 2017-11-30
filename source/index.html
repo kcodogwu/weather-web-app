@@ -13,6 +13,14 @@
 <body>
   <div class="page">
     <div class="header">
+      <div class="temp-unit">
+        <form id="temp-units">
+          <input type="radio" name="tempUnit" class="celsius-temp" value="C" checked />
+          <label>Celsius</label>
+          <input type="radio" name="tempUnit" class="fahrenheit-temp" value="F" />
+          <label>Fahrenheit</label>
+        </form>
+      </div>
       <div class="logo">
         <h1>Weather Search</h1>
       </div>
@@ -35,6 +43,7 @@
         <div class="top"></div>
         <div class="bottom"></div>
       </div>
+      <h2 class="chart-title"></h2>
       <div class="chart-area">
         <canvas class="weather-chart"></canvas>
       </div>
