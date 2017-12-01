@@ -104,6 +104,7 @@ window.onload = function onload() {
   // Handle top display area
   var topDisplay = function topDisplay(xd) {
     var cityName = xd.getElementsByTagName('city')[0].getAttribute('name');
+    var country = xd.getElementsByTagName('country')[0].innerHTML;
     var temperature = xd.getElementsByTagName('temperature')[0];
     var weather = xd.getElementsByTagName('weather')[0];
     var weatherDescription = weather.getAttribute('value');
@@ -135,7 +136,7 @@ window.onload = function onload() {
     LIB.addClass(divMainTemp, 'main-temp');
     LIB.addClass(maxSpan, 'max-temp');
     LIB.addClass(minSpan, 'min-temp');
-    h2.appendChild(document.createTextNode(cityName));
+    h2.appendChild(document.createTextNode(cityName + ', ' + country));
     div.appendChild(document.createTextNode(LIB.capitaliseFirstChar(weatherDescription)));
     img.alt = weatherDescription;
     img.src = LIB.imageLink + weatherIcon;

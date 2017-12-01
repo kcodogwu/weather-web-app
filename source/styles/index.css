@@ -67,7 +67,7 @@ p { font-size: 1em; }
 }
 
 .main {
-  margin-top: 30px;
+  margin-top: 70px;
   min-height: 50vh;
 }
 
@@ -75,11 +75,13 @@ p { font-size: 1em; }
   width: 300px;
   margin-left: auto;
   margin-right: auto;
+  margin-bottom: 70px;
   text-align: center;
 }
 
 .data {
   overflow-y: auto;
+  margin-bottom: 70px;
 }
 
 .main-temp {
@@ -115,7 +117,7 @@ p { font-size: 1em; }
   float: left;
   margin: 5px;
   padding: 5px;
-  margin-bottom: 20px;
+  margin-bottom: 50px;
   text-align: center;
 }
 
