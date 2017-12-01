@@ -94,6 +94,7 @@ var LIB = {
 };
 
 window.onload = function onload() {
+  var searchLabel = LIB._$('.search-label');
   var searchField = LIB._$('.search-field');
   var searchButton = LIB._$('.search-button');
   var c = LIB._$('.celsius-temp');
@@ -275,7 +276,7 @@ window.onload = function onload() {
       });
     }
 
-    chartTitle.innerHTML = 'Maximum Temp. against Minimum Temp. for ' 
+    chartTitle.innerHTML = 'Maximum Temp. against <span class="min-temp">Minimum Temp.</span> for ' 
       + LIB.days[0] + ' to ' + LIB.days[LIB.days.length - 1] + ', in degree ' 
       + (tu.value === 'C' ? 'Celsius' : 'Fahrenheit')
     ;
@@ -299,12 +300,6 @@ window.onload = function onload() {
         ]
       },
       options: {
-        // title: {
-        //   display: true,
-        //   text: 'Maximum Temp. against Minimum Temp. for ' + days[0] + ' to ' + days[days.length - 1] + ', in degree Celsius',
-        //   fontColor: 'rgb(255, 255, 255)',
-        //   fontSize: 22
-        // },
         scales: {
           yAxes: [
             { 
@@ -330,39 +325,39 @@ window.onload = function onload() {
     LIB.getAjax(
       'http://api.openweathermap.org/data/2.5/weather?q=' + text + '&units=metric&mode=xml&type=like&appid=fa868a7f62f1ab1e638c07217f015307',
       function success(data) {
-        LIB.xmlData = data.responseXML;
-        // reset
-        LIB.tempValue = null;
-        LIB.maxTemp = null;
-        LIB.minTemp = null;
-        topDisplay(LIB.xmlData);
+        if (data !== null || data !== undefined) {
+          LIB.getAjax(
+            'http://api.openweathermap.org/data/2.5/forecast?q=' + text + '&units=metric&type=like&appid=fa868a7f62f1ab1e638c07217f015307',
+            function success(data1) {
+              if (data1 !== null || data1 !== undefined) {
+                LIB.xmlData = data.responseXML;
+                LIB.jsonData = (JSON.parse(data1.responseText)).list;
+                // reset
+                LIB.tempValue = null;
+                LIB.maxTemp = null;
+                LIB.minTemp = null;
+                LIB._24hrsData = [];
+                LIB.maxTemps = [];
+                LIB.minTemps = [];
 
-        LIB.getAjax(
-          'http://api.openweathermap.org/data/2.5/forecast?q=' + text + '&units=metric&type=like&appid=fa868a7f62f1ab1e638c07217f015307',
-          function success(data1) {
-            LIB.jsonData = (JSON.parse(data1.responseText)).list;
-            LIB._24hrsData = [];
-            LIB.maxTemps = [];
-            LIB.minTemps = [];
-            bottomDisplay(LIB.jsonData);
-            LIB.tempUnit = tu.value;
-          }
-        );
+                topDisplay(LIB.xmlData);
+                bottomDisplay(LIB.jsonData);
+                LIB.tempUnit = tu.value;
+              } else searchLabel.innerHTML = 'The search was unsuccessful. Please, try again.<br />Enter town, city or location';
+            }
+          );
+        }
       }
     );
   };
 
   var searchHandler = function searchHandler(e) {
     e.preventDefault();
-
-    var flag = false;
-
-    search(searchField.value);
-    flag = true;
-
-    if (flag) {
+    
+    if (searchField.value !== '') {
+      search(searchField.value);
       searchField.value = '';
-    }
+    } else searchLabel.innerHTML = 'The search was unsuccessful. Please, try again.<br />Enter town, city or location';
   };
 
   var tempUnitChangeHandler = function tempUnitChangeHandler(e) {

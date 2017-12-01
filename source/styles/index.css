@@ -62,8 +62,15 @@ p { font-size: 1em; }
   border-color: white;
 }
 
-.search-label {
-  padding-bottom: 10px;
+.search-field {
+  padding: 5px 10px;
+  font-size: 0.95em;
+}
+
+.search-button {
+  padding: 4px;
+  width: 50px;
+  font-size: 0.95em;
 }
 
 .main {
@@ -107,7 +114,7 @@ p { font-size: 1em; }
 }
 
 .weather-breakdown {
-  width: 70%;
+  width: 90%;
   margin-left: auto;
   margin-right: auto;
 }
@@ -121,9 +128,9 @@ p { font-size: 1em; }
   text-align: center;
 }
 
-.detail:nth-child(5) {
+/* .detail:nth-child(5) {
   clear: left;
-}
+} */
 
 .max-temp {
   font-size: 1.25em;
