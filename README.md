@@ -1,3 +1,3 @@
 # Weather Web App
 
-A weather web app that uses data from openweathermap.org/api.
+A web app that presents weather information for a searched area. The app uses data from openweathermap.org/api.
